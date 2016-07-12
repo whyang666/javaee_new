@@ -346,7 +346,8 @@ public class UserMB {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
-        } else {
+        } 
+        else {
             int uid = current.getId();
             int bid = viewed.getBid();
             if (is.checkCollection(uid, bid)) {
@@ -380,7 +381,8 @@ public class UserMB {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
-        } else {
+        } 
+        else {
             
             int k = is.findSelectedCollId(current, viewed);
             if (k == -1) {

@@ -11,48 +11,54 @@
             body{margin:auto;text-align:center;
                  width: 1300px;
                  background-image: url(image/background.jpg);
-                 /*background-size:1300px 1000px;*/
-                 background-size:100% 100%;
+                 background-size:1750px 1300px;
                  background-repeat:no-repeat;
                  background-attachment: fixed;
             }
-            div#header {align:center;
-                        margin-bottom:20px;
-                        height:15%; width: 90%;
-                        background-color:rgba(255,255,255,0.3);}
-
-            div#globallink{
-                margin:auto;
-                width:90%;
-                height:30px;
-                text-align:center;
-                background-color:rgba(255,255,255,0.9);}
-            #traverse{
-                margin:0px;
+             #traverse{
+                margin-top:0px;
+                margin-bottom: 20px;
                 width:100%;
-                height:40px;
-                background-color:rgba(255,255,255,0.9);
-                padding:0px;
-            }
-            #traverse a{
-                text-decoration: none;
+                height:35px;
+                background-color:rgba(255,255,255,0.4);
+                text-align:center;
             }
             #traverse ul{
                 list-style-type:none;
-                text-align:center;
-                margin:15px;
+                height: 100%;
+                margin:0;
             }
             #traverse ul li{
+                width:20%;height: 100%;
+                font-size: 15pt;
                 float:left;
-                text-align:center;
+            } 
+            #traverse ul li:hover{
+                float:left;
                 width:20%;
-                font-size: 15pt; 
+                font-size: 15pt;
+                background-color:rgba(255,255,255,0.7);
             }
-            div#recommend{width:100%;height:80%;
-                          margin:auto;
-                          background-color:rgba(255,255,255,0.3);
-                          margin-bottom:20px;}
-            div#footer {text-align:center;background-color:rgba(255,255,255,0.5);}
+            div#header {
+                text-align:center;
+                margin-bottom:20px;
+                height:15%; width: 90%;
+                background-color:rgba(255,255,255,0.3);
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 20px;
+            }
+            div#regist{margin-left: auto;width: 40%;}
+
+            div#recommend{
+                width:100%;
+
+                margin-bottom:20px;}
+            div#footer {
+                text-align:center;
+                background-color:rgba(255,255,255,0.5);
+                width:100%;height: 30px;
+            }
             div.sort{width:50%;height:100%;
                      float:left;
                      margin:auto;
@@ -60,22 +66,26 @@
             div#fun{display: inline; }
             div#food{display: inline;}
             a{text-decoration: none;}
-            li.num{width:100%;height:160px;
-                   margin-bottom:20px;
-                   background-color:rgba(255,255,255,0.6);
-                   list-style-type: none}
+            li.num{
+                width:100%;height:160px;
+                margin-bottom:20px;
+                background-color:rgba(255,255,255,0.6);
+                list-style-type: none;
+                border-style: solid;
+            }
+            li.num:hover{background-color:rgba(255,255,255,0.8);}
             .pic{width: 40%;height:160px;
                  float:left;
                  display:inline;
                  margin:0;}
-            p.brif{width:70%;
-                   float:left;
-                   text-align:justify;
-                   margin:0;
-                   display: inline}
-            h2.title{background-color:#FFE4E1}
-            li.num:hover{background-color:rgba(255,255,255,0.8);}
-            div#regist{margin-left: auto;width: 40%;}
+            p.brif{
+                width:70%;
+                float:left;
+                text-align:justify;
+                margin:0;
+                display: inline}
+            
+            
         </style>
         <title>吃喝玩乐在北京</title>
     </h:head>
@@ -83,25 +93,18 @@
 
     <h:body>
         <p:growl id="growl" sticky="true" showDetail="true" />
-        
-         <h:form>
+
+        <h:form>
             <div id="traverse">
                 <ul>
                     <li><a href="homepage.xhtml">首页</a></li>
                     <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
-                </ul>
-            </div>
-        </h:form>
-
-        
-        <div id="header">
-            <h1 >吃喝玩乐在北京</h1>
-            <div id="regist">
+                    <div id="regist">
                 <c:if test="#{!(userMB.isLogged)}">
                     <h:form id="form">
                         <p:commandLink update="form:log" onclick="PF('myDialog').show();" title="登陆">
                             登陆
-                        </p:commandLink>
+                        </p:commandLink>|
                         <p:commandLink  action="#{userMB.toRegister()}" title="注册">
                             注册
                         </p:commandLink>
@@ -124,7 +127,20 @@
                         <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
                     </h:form>
                 </c:if>    
-            </div>  
+            </div> 
+                </ul>
+                 
+            </div>
+            
+           
+            
+            
+        </h:form>
+
+
+        <div id="header">
+            <h1 >吃喝玩乐在北京</h1>
+        
         </div>
 
 
@@ -234,14 +250,14 @@
                         </h:commandLink>
                     </ul>
                 </div>
-<!-- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk -->
+                <!-- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk -->
                 <div class="sort" id="fun">
                     <h:commandLink action="playpage">
                         <h2>找点乐子</h2>
                     </h:commandLink>
-                   
-                     <ul>
-                         <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[0])}">
+
+                    <ul>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[0])}">
                             <li class="num">
                                 <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[0].ppic}"></h:graphicImage>
                                 <br/>
@@ -338,8 +354,8 @@
                             </li> 
                         </h:commandLink>
                     </ul>
-                    
-                    
+
+
                 </div>
             </h:form>
         </div>
