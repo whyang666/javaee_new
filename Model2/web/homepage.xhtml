@@ -1,0 +1,354 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <style>
+            body{margin:auto;text-align:center;
+                 width: 1300px;
+                 background-image: url(image/background.jpg);
+                 /*background-size:1300px 1000px;*/
+                 background-size:100% 100%;
+                 background-repeat:no-repeat;
+                 background-attachment: fixed;
+            }
+            div#header {align:center;
+                        margin-bottom:20px;
+                        height:15%; width: 90%;
+                        background-color:rgba(255,255,255,0.3);}
+
+            div#globallink{
+                margin:auto;
+                width:90%;
+                height:30px;
+                text-align:center;
+                background-color:rgba(255,255,255,0.9);}
+            #traverse{
+                margin:0px;
+                width:100%;
+                height:40px;
+                background-color:rgba(255,255,255,0.9);
+                padding:0px;
+            }
+            #traverse a{
+                text-decoration: none;
+            }
+            #traverse ul{
+                list-style-type:none;
+                text-align:center;
+                margin:15px;
+            }
+            #traverse ul li{
+                float:left;
+                text-align:center;
+                width:20%;
+                font-size: 15pt; 
+            }
+            div#recommend{width:100%;height:80%;
+                          margin:auto;
+                          background-color:rgba(255,255,255,0.3);
+                          margin-bottom:20px;}
+            div#footer {text-align:center;background-color:rgba(255,255,255,0.5);}
+            div.sort{width:50%;height:100%;
+                     float:left;
+                     margin:auto;
+            }
+            div#fun{display: inline; }
+            div#food{display: inline;}
+            a{text-decoration: none;}
+            li.num{width:100%;height:160px;
+                   margin-bottom:20px;
+                   background-color:rgba(255,255,255,0.6);
+                   list-style-type: none}
+            .pic{width: 40%;height:160px;
+                 float:left;
+                 display:inline;
+                 margin:0;}
+            p.brif{width:70%;
+                   float:left;
+                   text-align:justify;
+                   margin:0;
+                   display: inline}
+            h2.title{background-color:#FFE4E1}
+            li.num:hover{background-color:rgba(255,255,255,0.8);}
+            div#regist{margin-left: auto;width: 40%;}
+        </style>
+        <title>吃喝玩乐在北京</title>
+    </h:head>
+
+
+    <h:body>
+        <p:growl id="growl" sticky="true" showDetail="true" />
+        
+         <h:form>
+            <div id="traverse">
+                <ul>
+                    <li><a href="homepage.xhtml">首页</a></li>
+                    <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
+                </ul>
+            </div>
+        </h:form>
+
+        
+        <div id="header">
+            <h1 >吃喝玩乐在北京</h1>
+            <div id="regist">
+                <c:if test="#{!(userMB.isLogged)}">
+                    <h:form id="form">
+                        <p:commandLink update="form:log" onclick="PF('myDialog').show();" title="登陆">
+                            登陆
+                        </p:commandLink>
+                        <p:commandLink  action="#{userMB.toRegister()}" title="注册">
+                            注册
+                        </p:commandLink>
+                        <p:dialog  header="登陆"  id="myDialog" widgetVar="myDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="log" style="text-align:center;">
+                                <p:panelGrid  columns="2" >
+                                    <f:facet name="header"></f:facet>
+                                    <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
+                                    <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="flase"/>
+                                    <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
+                                    <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
+                                </p:panelGrid>
+                                <p:commandButton value="登陆" action="#{userMB.logButton()}" />
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </c:if>
+                <c:if test="#{userMB.isLogged}">
+                    <h:form>
+                        <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
+                    </h:form>
+                </c:if>    
+            </div>  
+        </div>
+
+
+        <div id="recommend">
+            <h:form>
+                <div class="sort" id="food">
+                    <h:commandLink action="foodpage">
+                        <h2>今天吃什么</h2>
+                    </h:commandLink>
+
+                    <ul>
+                        <h:commandLink action="#{userMB.foodNo(0)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[0].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[0].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[0].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[0].btel}</p>
+                                    <p>简介：#{userMB.initialItems[0].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(1)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[1].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[1].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[1].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[1].btel}</p>
+                                    <p>简介：#{userMB.initialItems[1].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(2)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[2].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[2].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[2].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[2].btel}</p>
+                                    <p>简介：#{userMB.initialItems[2].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(3)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[3].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[3].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[3].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[3].btel}</p>
+                                    <p>简介：#{userMB.initialItems[3].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(4)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[4].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[4].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[4].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[4].btel}</p>
+                                    <p>简介：#{userMB.initialItems[4].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(5)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[5].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[5].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[5].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[5].btel}</p>
+                                    <p>简介：#{userMB.initialItems[5].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(6)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[6].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[6].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[6].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[6].btel}</p>
+                                    <p>简介：#{userMB.initialItems[6].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.foodNo(7)}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/business/#{userMB.initialItems[7].bpic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialItems[7].bname}</h3>
+                                    <p>地址：#{userMB.initialItems[7].baddress}</p>
+                                    <p>电话：#{userMB.initialItems[7].btel}</p>
+                                    <p>简介：#{userMB.initialItems[7].binfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                    </ul>
+                </div>
+<!-- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk -->
+                <div class="sort" id="fun">
+                    <h:commandLink action="playpage">
+                        <h2>找点乐子</h2>
+                    </h:commandLink>
+                   
+                     <ul>
+                         <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[0])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[0].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[0].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[0].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[0].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[0].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[1])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[1].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[1].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[1].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[1].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[1].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[2])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[2].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[2].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[2].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[2].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[2].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[3])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[3].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[3].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[3].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[3].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[3].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[4])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[4].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[4].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[4].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[4].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[4].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[5])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[5].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[5].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[5].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[5].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[5].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[6])}">
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[6].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[6].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[6].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[6].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[6].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                        <h:commandLink action="#{userMB.onSpecialPlaySelected(userMB.initialPlay[7])}">  <!-- what do we eat for dinner?  -->
+                            <li class="num">
+                                <h:graphicImage class="pic" url="/play/#{userMB.initialPlay[7].ppic}"></h:graphicImage>
+                                <br/>
+                                <p class="brif">
+                                    <h3>#{userMB.initialPlay[7].pname}</h3>
+                                    <p>地址：#{userMB.initialPlay[7].paddress}</p>
+                                    <p>电话：#{userMB.initialPlay[7].ptel}</p>
+                                    <p>简介：#{userMB.initialPlay[7].pinfo}</p>
+                                </p>
+                            </li> 
+                        </h:commandLink>
+                    </ul>
+                    
+                    
+                </div>
+            </h:form>
+        </div>
+
+        <div id="footer">
+            <p>我们是一个神奇的团队</p>
+            <p>详情请联系40088820820</p>
+        </div>
+
+    </h:body>
+</html>
+

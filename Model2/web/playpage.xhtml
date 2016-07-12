@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>吃喝玩乐在北京</title>
+    <style>
+body{
+  margin:auto;
+  width: 1300px; 
+  background-image: url(play/backgroundp.jpg);
+  background-repeat:no-repeat;
+  background-attachment: fixed;
+}
+
+#traverse{
+    margin:0px;
+    width:100%;
+    height:40px;
+    background-color:rgba(255,255,255,0.9);
+    padding:0px;
+}
+#traverse a{
+    text-decoration: none;
+}
+#traverse ul{
+    list-style-type:none;
+    text-align:center;
+    margin:15px;
+}
+#traverse ul li{
+    float:left;
+    text-align:center;
+    width:20%;
+    font-size: 15pt; 
+}
+
+#header{
+   margin:auto; 
+   width: 100%; 
+   height:200px;
+   text-align:center;
+   font-size: 20px;
+   background-color:rgba(255,255,255,0.5);
+}
+
+#regist{
+    margin-left: auto;
+    width: 40%;
+}
+
+#left{
+    margin:auto;
+    padding:0px;
+    width:20%;
+    height:800px;
+    background-color: rgba(255,255,255,0.5);
+    text-align:center;
+    font-size:15px;
+    font-family: Ariel;
+    float:left;
+    display:inline;
+}
+
+#right{
+    margin:auto;
+    padding:0px;
+    width:80%;
+    height:800px;
+    float:left;
+    display:inline;
+}
+
+#footer{
+    margin: auto;
+    padding:0px;
+    width:100%;
+    height:60px;
+    text-align: center;
+    background-color: rgba(255,255,255,0.9);
+    float:left;
+}
+    </style>
+    </h:head>
+    
+    <h:body> 
+    <div id="traverse">
+        <ul>
+            <h:form>
+            <li><a href="homepage.xhtml">首页</a></li>
+            <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
+            </h:form>
+        </ul>
+    </div>
+        
+    <div id="header">
+        <h1 >吃喝玩乐在北京</h1>
+
+        <div id="regist">
+            <c:if test="#{!(userMB.isLogged)}">
+                <h:form>
+                    <p:outputPanel style="text-align:center;">
+                        <p:panelGrid  columns="3" >
+                            <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
+                            <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="true"/>
+                            <p:message for="name"/>
+
+                            <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
+                            <p:password id="pwd" value="#{userMB.password}"  label="密码" required="true" />
+                            <p:message for="pwd" />                    
+
+                        </p:panelGrid>
+                        <p:commandButton id="login" value="登录" action="#{userMB.logButton()}" />
+                        <p:commandButton value="注册" action="#{userMB.toRegister()}" />
+                    </p:outputPanel>
+                </h:form>
+            </c:if>
+            <c:if test="#{userMB.isLogged}">
+                <h:form>
+                    <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
+                </h:form>
+            </c:if>    
+        </div>
+    </div>
+
+    <div id = "left">
+        <h2>分类</h2>
+        <br/>
+          <h:form>
+                <p:growl autoUpdate="true"/>
+                <p:menu style="width: 90%">
+                    <p:menuitem value="全部" action="#{userMB.findTagP(0)}"/>
+                    <p:menuitem value="户外" action="#{userMB.findTagP(1)}"/>
+                    <p:menuitem value="室内" action="#{userMB.findTagP(2)}"/>
+                    <p:menuitem value="著名景点" action="#{userMB.findTagP(3)}"/>
+                    <p:menuitem value="参观展览" action="#{userMB.findTagP(4)}"/>
+                    <p:menuitem value="休闲娱乐" action="#{userMB.findTagP(5)}"/>
+                    <p:menuitem value="游山玩水" action="#{userMB.findTagP(6)}"/>
+                </p:menu>
+          </h:form>     
+    </div>
+        
+    <div id = "right">
+            <h:form>
+                <p:dataGrid var="item" value="#{userMB.tagPlay}" columns="3" rows="6" paginator="true" id="items"
+               paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+ 
+               <p:panel header=" #{item.pname}" style="text-align:center">
+                   <h:panelGrid columns="1" style="width:100%">
+                       <p:commandLink action="#{userMB.onSpecialPlaySelected(item)}">
+                           <p:graphicImage url="play/#{item.ppic}" width="200px" height="200px"/> 
+                     </p:commandLink>
+                   </h:panelGrid>
+               </p:panel>
+ 
+               </p:dataGrid>
+            </h:form>
+    </div>
+        
+    <div id = "footer">
+        <p>我们是一个神奇的团队   详情请联系：40088208820</p>
+    </div>
+    </h:body>
+</html>
+

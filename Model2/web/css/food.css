@@ -1,0 +1,118 @@
+body{
+    background-image:url(image/background.jpg);
+    background-size:1500px 1000px;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    margin:auto;
+    padding:0px;
+    font-size:12px;
+    font-family:Arial;       
+}
+#container{
+    margin:0px auto;
+    width:80%;
+    background-color:rgba(255,255,255,0.3);
+    text-align: left;
+}
+#traverse{
+    margin:0px;
+    width:100%;
+    height:40px;
+    background-color:rgba(255,255,255,0.3);
+    padding:0px;
+}
+#traverse a{
+    text-decoration: none;
+}
+#traverse ul{
+    list-style-type:none;
+    text-align:center;
+    margin:15px;
+}
+#traverse ul li{
+    float:left;
+    text-align:center;
+    width:20%;
+    font-size: 15pt; 
+}
+#header{
+    width: 100%;
+    height:200px;
+    text-align:center;
+    margin-bottom:20px; 
+    background-color:rgba(255,255,255,0.3);
+    font-size: 12pt;
+}
+#rigist{
+    margin-left:auto;
+    width: 20%
+}
+#businessinfo{
+    margin:0px;
+    width:100%;
+    height:150px;
+    background-color:rgba(255,255,255,0.3);
+    padding:0px;
+    border-bottom-width: 2px;
+    border-bottom-color: #F0FFFF;
+    border-bottom-style: dashed;    
+}
+.info-text{
+    font-size: 18pt; 
+    line-height:11pt ;  
+    color:#5F6468;
+    text-align:center;
+    font-family: Verdana;
+}
+#left{
+    margin:0px;
+    width:60%;
+    height:360px;
+    background-color:rgba(255,255,255,0.3);
+    padding:0px 0px 5px 0px;
+    color:#d8ecff;
+    float:left;
+}
+#rotateimage:hover{ 
+    transform:scale(1.1,1.1);
+}
+#right{
+    float:left;
+    margin:0px;
+    width:40%;
+    height:360px;
+    background-color:rgba(255,255,255,0.3);
+    padding:0px 0px 5px 0px;
+    
+}
+.right-text{
+    font-size: 18pt; 
+    font-family: Verdana; 
+    line-height: 11pt ;  
+    color:#5F6468;
+}
+#footer{
+    margin:auto;
+    width:100%;
+    height:30px;
+    padding:0px;
+    text-align:center; 
+    position:relative;
+    background-color:rgba(255,255,255,0.3);
+    clear:both;
+}
+.footer-text{
+    font-size: 8pt; 
+    font-family: Verdana; 
+    line-height: 11pt ;  
+    color:#5F6468;
+}
+.image1 {
+    margin-top: 3%;
+    float:right;
+    height:100%;
+    width:100%;
+}
+
+
+

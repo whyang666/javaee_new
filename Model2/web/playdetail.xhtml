@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>吃喝玩乐在北京</title>
+        <link href="playdetail.css" rel="stylesheet" type="text/css"></link>
+
+        <style>
+            body{
+                background-image:url(image/background.jpg);
+                background-repeat:no-repeat;
+                background-attachment: fixed;
+                background-size:100% 100%;
+                margin:auto;
+                padding:0px;
+                font-size:12px;
+                font-family:Arial;       
+            }
+            #container{
+                margin:0px auto;
+                width:80%;
+                background-color:rgba(255,255,255,0.3);
+            }
+            #traverse{
+                margin:0px;
+                width:100%;
+                height:40px;
+                background-color:rgba(255,255,255,0.3);
+                padding:0px;
+            }
+            #traverse a{
+                text-decoration: none;
+            }
+            #traverse ul{
+                list-style-type:none;
+                text-align:center;
+                margin:15px;
+            }
+            #traverse ul li{
+                float:left;
+                text-align:center;
+                width:20%;
+                font-size: 15pt; 
+            }
+            #header{
+                width: 100%;
+                height:250px;
+                text-align:center;
+                margin-bottom:20px; 
+                background-color:rgba(255,255,255,0.3);
+                font-size: 12pt;
+            }
+            #regist{
+                margin-left:auto;
+                width: 40%
+            }
+            .info-text{
+                font-size: 18pt; 
+                line-height:11pt ;  
+                color:#5F6468;
+                text-align:left;
+                font-family: Verdana;
+            }
+            #left{
+                margin:0px;
+                width:40%;
+                height:360px;
+                float:left;
+                background-color:rgba(255,255,255,0.3);
+            }
+            .rotateimage:hover{ 
+                transform:scale(1.1,1.1);
+            }
+            #right{
+                float:left;
+                margin:0px;
+                width:60%;
+                height:360px;
+                background-color:rgba(255,255,255,0.3);
+            }
+            .right-text{
+                font-size: 18pt; 
+                font-family: Verdana; 
+                line-height: 11pt ;  
+                color:#5F6468;
+            }
+            #leftbottom{
+                margin:0px;
+                width:100%;
+                height:400px;
+                background-color:rgba(255,255,255,0.3);   
+            }
+            .leftbottom-text{
+                font-size: 18pt; 
+                font-family: Verdana; 
+                line-height: 11pt ;  
+                color:#5F6468;
+            }
+            #footer{
+                margin:auto;
+                width:100%;
+                height:30px;
+                padding:0px;
+                text-align:center; 
+                position:relative;
+                background-color:rgba(255,255,255,0.3);
+                clear:both;
+            }
+            .footer-text{
+                font-size: 8pt; 
+                font-family: Verdana; 
+                line-height: 11pt ;  
+                color:#5F6468;
+            }
+
+
+
+
+
+        </style>
+    </h:head>
+    <h:body>
+        <!--整体外层容器-->
+        <div id="container">
+            <div id="traverse">
+                <ul>
+                    <li><a href="homepage.xhtml">首页</a></li>
+                    <li><a href="foodpage.xhtml">返回列表</a></li>
+                    <h:form>
+                        <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"/></li> 
+                    </h:form>
+                    <li><a href="http://jwc.bupt.edu.cn/">联系我们</a></li> 
+                </ul>
+            </div>
+            <!--header-->
+            <div id="header">
+                <h1 >吃喝玩乐在北京</h1>
+                <div id="regist">
+                    <c:if test="#{!(userMB.isLogged)}">
+                        <h:form id="form">
+                            <p:commandLink update="form:log" onclick="PF('myDialog').show();" title="登陆">
+                                登陆
+                            </p:commandLink>
+                            <p:commandLink  action="#{userMB.toRegister()}" title="注册">
+                                注册
+                            </p:commandLink>
+                            <p:dialog  header="登陆"  id="myDialog" widgetVar="myDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                <p:outputPanel id="log" style="text-align:center;">
+                                    <p:panelGrid  columns="2" >
+                                        <f:facet name="header"></f:facet>
+                                        <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
+                                        <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="flase"/>
+                                        <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
+                                        <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
+                                    </p:panelGrid>
+                                    <p:commandButton value="登陆" action="#{userMB.logButton()}" />
+                                </p:outputPanel>
+                            </p:dialog>
+                        </h:form>
+                    </c:if>
+                    <c:if test="#{userMB.isLogged}">
+                        <h:form>
+                            <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
+                        </h:form>
+                    </c:if>    
+                </div>  
+            </div>
+            <!--left-->
+            <div id="left" >
+                <div class="info-text">
+                <h2>&nbsp;&nbsp;商家名称:#{userMB.v.pname}</h2>
+                    <h:form>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                        <p:growl id="growl" life="2000" />
+
+                        <p:commandButton action="#{userMB.collectOrNot()}" value="收藏本店" id="collect" update="growl" />
+
+                    </h:form>
+                    <ul>
+                        <li>玩乐时间：10:00-20:00</li><br/>
+                        <li>人均：¥100</li><br/>                      
+                        <li>玩乐地址：#{userMB.v.paddress}</li><br/>
+                        <li>联系电话：#{userMB.v.ptel}</li><br/>  
+                        <li>注意事项：自然科学博物馆不可携带小孩。</li><br/>
+                    </ul>
+                </div>
+               
+            </div>            
+            <!--right-->
+            <div id="right">   
+               <img src="play/#{userMB.v.ppic}" class="rotateimage" style="height:100%;width:100%" alt=""/>
+            </div>
+
+           
+
+
+            <!--footer-->
+            <div id="footer">
+                <div class="footer-text">
+                    &nbsp; &copy;版权所有&nbsp;&nbsp;&nbsp; 2016.北京邮电大学软件学院<img src="resource/d1.jpg"/>
+                </div>
+            </div>           
+        </div>
+    </h:body>
+</html>
+
