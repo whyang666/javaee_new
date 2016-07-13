@@ -47,7 +47,7 @@ public class UserMB {
     public String getPp() {
         return pp;
     }
-    
+
     private boolean searched = false;//记录是否已经初始化items
 
     private List<Business> collectedItems;//收藏页的items
@@ -69,19 +69,21 @@ public class UserMB {
     private List<Business> truetag;
     private String tag = "西餐";//tag名字,默认为中餐
     private Tag choosedTag;
-    private boolean alreadyBC=false;//记录viewed和current关系
+    private boolean alreadyBC = false;//记录viewed和current关系
     private String words;
 
     public String getWords() {
-        if(alreadyBC) words = "取消收藏";
-        else words = "收藏";
+        if (alreadyBC) {
+            words = "取消收藏";
+        } else {
+            words = "收藏";
+        }
         return words;
     }
 
     public void setWords(String words) {
         this.words = words;
     }
-    
 
     public Business getViewed() {
         return viewed;
@@ -192,9 +194,9 @@ public class UserMB {
     public String foodNo(int index) {//固定数目主页到特定shopdetaill
         //viewed=initialItems.get(index);
         viewed = initialItems.get(index);
-        alreadyBC=is.checkBC(current, viewed);
-        shopComments=null;
-        comments=null;
+        //alreadyBC = is.checkBC(current, viewed);
+        shopComments = null;
+        comments = null;
         return "shopdetail";
     }
 
@@ -259,7 +261,7 @@ public class UserMB {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
                 isLogged = true;
-                current=new User();
+                current = new User();
                 current.setUname(name);
                 current.setUpassword(password);
                 current.setId(thisID);
@@ -285,12 +287,13 @@ public class UserMB {
         return "";
 
     }
-    public String logButton2(){
-                if (!isLogged) {
+
+    public String logButton2() {
+        if (!isLogged) {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
                 isLogged = true;
-                current=new User();
+                current = new User();
                 current.setUname(name);
                 current.setUpassword(password);
                 current.setId(thisID);
@@ -316,13 +319,13 @@ public class UserMB {
         return "";
     }
     //
-    
-    public String logButton3(){
-                    if (!isLogged) {
+
+    public String logButton3() {
+        if (!isLogged) {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
                 isLogged = true;
-                current=new User();
+                current = new User();
                 current.setUname(name);
                 current.setUpassword(password);
                 current.setId(thisID);
@@ -347,13 +350,13 @@ public class UserMB {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
         return "";
     }
-    
-     public String logButton4(){
-                    if (!isLogged) {
+
+    public String logButton4() {
+        if (!isLogged) {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
                 isLogged = true;
-                current=new User();
+                current = new User();
                 current.setUname(name);
                 current.setUpassword(password);
                 current.setId(thisID);
@@ -378,13 +381,13 @@ public class UserMB {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
         return "";
     }
-     
-      public String logButton5(){
-                    if (!isLogged) {
+
+    public String logButton5() {
+        if (!isLogged) {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
                 isLogged = true;
-                current=new User();
+                current = new User();
                 current.setUname(name);
                 current.setUpassword(password);
                 current.setId(thisID);
@@ -409,6 +412,7 @@ public class UserMB {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
         return "";
     }
+
     public String prepare() {//防止空指针错误，初始化相应变量
         current = new User();
         collectedItems = null;
@@ -431,11 +435,11 @@ public class UserMB {
         if (!isLogged) {
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未登录！", "请您先登录!，" + name));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未登录！", "请您先登录!" ));
             return "";
         } else {
-            collectedItems=null;
-            collectedPlay=null;
+            collectedItems = null;
+            collectedPlay = null;
             return "collect";
         }
     }
@@ -480,8 +484,7 @@ public class UserMB {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
-        } 
-        else {
+        } else {
             int uid = current.getId();
             int bid = viewed.getBid();
             if (is.checkCollection(uid, bid)) {
@@ -497,8 +500,8 @@ public class UserMB {
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 收藏成功", "请继续浏览"));
-            pp="cancel";
-            alreadyBC=true;
+            pp = "cancel";
+            alreadyBC = true;
             collectedItems = null;
             return "shopdetail";
         }
@@ -507,8 +510,8 @@ public class UserMB {
 
     public String onSpecialItemSelected(Business e) {
         viewed = e;
-        shopComments=null;
-       comments=null;
+        shopComments = null;
+        comments = null;
         return "shopdetail";
     }
 
@@ -518,9 +521,8 @@ public class UserMB {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
-        } 
-        else {
-            
+        } else {
+
             int k = is.findSelectedCollId(current, viewed);
             if (k == -1) {
                 RequestContext.getCurrentInstance().update("growl");
@@ -531,72 +533,58 @@ public class UserMB {
             is.removeCollById(k);
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 已取消收藏", "请继续浏览"));           
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 已取消收藏", "请继续浏览"));
             collectedItems = null;
             return "shopdetail";
         }
     }
-    
-    public String cancelCP(){
+
+    public String cancelCP() {
         if (!isLogged) {
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
-        } 
-        else{
-            if(is.checkPC(current, v)){
-                is.cancelPC(current, v);
-                RequestContext.getCurrentInstance().update("growl");
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 已取消收藏", "请继续浏览"));
-                return "playdetail";
-            }
-            else{
-                 RequestContext.getCurrentInstance().update("growl");
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未收藏此店铺", "请继续浏览"));
-                return "";
-            }
+        } else if (is.checkPC(current, v)) {
+            is.cancelPC(current, v);
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 已取消收藏", "请继续浏览"));
+            return "playdetail";
+        } else {
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未收藏此店铺", "请继续浏览"));
+            return "";
         }
     }
-    
-    public String confirmCP(){
-         if (!isLogged) {
+
+    public String confirmCP() {
+        if (!isLogged) {
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
-        } 
-         else{
-             if(is.checkPC(current, v)){
-                  RequestContext.getCurrentInstance().update("growl");
+        } else {
+            if (is.checkPC(current, v)) {
+                RequestContext.getCurrentInstance().update("growl");
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您已经收藏了此店铺", "无法重复收藏"));
-             }
-             else{
-                 is.confirmPC(current, v);
-                  RequestContext.getCurrentInstance().update("growl");
+            } else {
+                is.confirmPC(current, v);
+                RequestContext.getCurrentInstance().update("growl");
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 收藏成功", "请继续浏览"));
-             }
-             return "";
-         }
+            }
+            return "";
+        }
     }
-    
-    
-    
-    public boolean businessIsNotCollected(){
+
+    public boolean businessIsNotCollected() {
         return is.findSelectedCollId(current, viewed) == -1;
     }
-    
-    
-    
-    
-    
-    
-    
-    private String ptag="全部";
+
+    private String ptag = "全部";
     private Play v;//当前正在访问的PLAY
     List<Play> initialPlay;//初始页面展示的paly
     List<Play> collectedPlay;//收藏页面的PLAY
@@ -604,34 +592,32 @@ public class UserMB {
     private boolean alreadyC;
 
     public List<Play> getTagPlay() {
-        if(tagPlay!= null) return tagPlay;
-        if(ptag.equals("全部"))
-            tagPlay=is.allPlay();
-        else{
-            if(ptag.equals("户外"))
-                tagPlay=is.findPlayByTag("户外");
-            else if(ptag.equals("室内"))
-                tagPlay=is.findPlayByTag("室内");
-            else if(ptag.equals("著名景点"))
-                  tagPlay=is.findPlayByTag("著名景点");
-            else if(ptag.equals("参观展览"))
-                  tagPlay=is.findPlayByTag("参观展览");
-            else if(ptag.equals("休闲娱乐"))
-                  tagPlay=is.findPlayByTag("休闲娱乐");
-            else if(ptag.equals("游山玩水"))
-                 tagPlay=is.findPlayByTag("游山玩水");
+        if (tagPlay != null) {
+            return tagPlay;
+        }
+        if (ptag.equals("全部")) {
+            tagPlay = is.allPlay();
+        } else if (ptag.equals("户外")) {
+            tagPlay = is.findPlayByTag("户外");
+        } else if (ptag.equals("室内")) {
+            tagPlay = is.findPlayByTag("室内");
+        } else if (ptag.equals("著名景点")) {
+            tagPlay = is.findPlayByTag("著名景点");
+        } else if (ptag.equals("参观展览")) {
+            tagPlay = is.findPlayByTag("参观展览");
+        } else if (ptag.equals("休闲娱乐")) {
+            tagPlay = is.findPlayByTag("休闲娱乐");
+        } else if (ptag.equals("游山玩水")) {
+            tagPlay = is.findPlayByTag("游山玩水");
         }
         return tagPlay;
-            
+
     }
 
     public void setTagPlay(List<Play> tagPlay) {
         this.tagPlay = tagPlay;
     }
 
-    
-    
-    
     public Play getV() {
         return v;
     }
@@ -644,7 +630,7 @@ public class UserMB {
         if (initialPlay != null) {
             return initialPlay;
         } else {
-            initialPlay=is.randomPlay(8);
+            initialPlay = is.randomPlay(8);
             return initialPlay;
         }
 
@@ -656,8 +642,9 @@ public class UserMB {
     }
 
     public List<Play> getCollectedPlay() {
-        if(collectedPlay !=null) return collectedPlay;
-        else{
+        if (collectedPlay != null) {
+            return collectedPlay;
+        } else {
             collectedPlay = is.collectedPlay(current);
             return collectedPlay;
         }
@@ -669,114 +656,120 @@ public class UserMB {
 
     public String onSpecialPlaySelected(Play x) {
         v = x;
-        playComments=null;
-        commentsp=null;
+        playComments = null;
+        commentsp = null;
         return "playdetail";
     }
-    
-    public String findTagP(int index){
-        if(index==0) ptag="全部";
-        else if(index==1) ptag="户外";
-        else if(index==2) ptag="室内";
-        else if(index==3) ptag="著名景点";
-        else if(index==4) ptag="参观展览";
-        else if(index==5) ptag="休闲娱乐";
-        else if(index==6) ptag="游山玩水";
-        tagPlay=null;
+
+    public String findTagP(int index) {
+        if (index == 0) {
+            ptag = "全部";
+        } else if (index == 1) {
+            ptag = "户外";
+        } else if (index == 2) {
+            ptag = "室内";
+        } else if (index == 3) {
+            ptag = "著名景点";
+        } else if (index == 4) {
+            ptag = "参观展览";
+        } else if (index == 5) {
+            ptag = "休闲娱乐";
+        } else if (index == 6) {
+            ptag = "游山玩水";
+        }
+        tagPlay = null;
         return "playpage.xhtml?faces-redirect=true";
-        
+
     }
     //户外，室内，著名景点，参观/展览，休闲娱乐/游山玩水
-    
-    public String collectOrNot(){
-        if(!isLogged){
+
+    public String collectOrNot() {
+        if (!isLogged) {
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
             return "";
+        } else if (alreadyC) {//已收藏，则取消
+            is.cancelPC(current, v);
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 取消收藏成功!", "您可以继续浏览"));
+            alreadyC = false;
+        } else {
+            is.confirmPC(current, v);
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 收藏成功!", "您可以继续浏览"));
+            alreadyC = true;
         }
-        else{
-            if(alreadyC){//已收藏，则取消
-                is.cancelPC(current, v);
-                RequestContext.getCurrentInstance().update("growl");
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 取消收藏成功!", "您可以继续浏览"));
-                alreadyC=false;
-            }
-            else{
-                is.confirmPC(current, v);
-                RequestContext.getCurrentInstance().update("growl");
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 收藏成功!", "您可以继续浏览"));
-                alreadyC=true;
-            }
-        }
-        
-        
-        
-        
+
         return "";
     }
-    public String logOut(){
-        isLogged=false;
-        current=null;
-        initialItems=null;
-        initialPlay=null;
-        tagItems=null;
-        tagPlay=null;
-        viewed=null;
-        v=null;
+
+    public String logOut() {
+        isLogged = false;
+        current = null;
+        initialItems = null;
+        initialPlay = null;
+        tagItems = null;
+        tagPlay = null;
+        viewed = null;
+        v = null;
         return "homepage.xhtml?faces-redirect=true";
     }
-    public void refreshB(){
-      initialItems=is.randomBusiness(8);
-  }
-    public void refreshP(){
-        initialPlay=is.randomPlay(8);
+
+    public void refreshB() {
+        initialItems = is.randomBusiness(8);
     }
-    
-    
+
+    public void refreshP() {
+        initialPlay = is.randomPlay(8);
+    }
+
     private String comments;
     private List<Comment> shopComments;
 
     public String getComments() {
         return comments;
     }
-   
+
     public List<Comment> getShopComments() {
-    
-        if(shopComments!=null) return shopComments;
-        else{
-            shopComments=is.findCommentsByBusiness(viewed);
+
+        if (shopComments != null) {
+            return shopComments;
+        } else {
+            shopComments = is.findCommentsByBusiness(viewed);
         }
         return shopComments;
     }
 
-   
     public void setComments(String comments) {
         this.comments = comments;
     }
-   
-    public String submitComments(){
-        if(!isLogged) return "";
+
+    public String submitComments() {
+        if (!isLogged) {
+            return "";
+        }
         is.persistComment(current, viewed, comments);
-        shopComments=null;
-        comments=null;
+        shopComments = null;
+        comments = null;
         return "shopdetail.xhtml?faces-redirect=true";
     }
-    
-    
+
     private String commentsp;
     private List<Commentp> playComments;
-   
-    
-    public String submitPComments(){
-        if(!isLogged) return "";
+
+    public String submitPComments() {
+        if (!isLogged) {
+            return "";
+        }
         is.persistPComment(current, v, commentsp);
-        playComments=null;
-        commentsp=null;
+        playComments = null;
+        commentsp = null;
         return "playdetail.xhtml?faces-redirect=true";
     }
+
     public String getCommentsp() {
         return commentsp;
     }
@@ -786,19 +779,16 @@ public class UserMB {
     }
 
     public List<Commentp> getPlayComments() {
-       if(playComments!=null) return playComments;
-       else{
-           playComments=is.findCommentByPlay(v);
-       }
-       return playComments;
+        if (playComments != null) {
+            return playComments;
+        } else {
+            playComments = is.findCommentByPlay(v);
+        }
+        return playComments;
     }
 
     public void setPlayComments(List<Commentp> playComments) {
         this.playComments = playComments;
     }
 
-    
-    
-    
-    
 }

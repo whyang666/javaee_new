@@ -11,7 +11,7 @@
             body{
                 margin:auto;text-align:center;
                 width: 1300px;
-                background-image: url(image/background.jpg);
+                background-image: url(play/backgroundp.jpg);
                 background-size:1750px 1300px;
                 background-repeat:no-repeat;
                 background-attachment: fixed;   
@@ -183,7 +183,6 @@
     </h:head>
     <h:body>
         <!--整体外层容器-->
-        <p:growl id="growl" sticky="true" showDetail="true" />
         <div id="container">
             <h:form>
                 <div id="traverse">
@@ -191,7 +190,8 @@
                         <li><a href="homepage.xhtml">首页</a></li>
                         <li><a href="playpage.xhtml">返回列表</a></li>
                         <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
-                        <li><a href="http://jwc.bupt.edu.cn/">联系我们</a></li> 
+                        
+                      
                     </ul>
                 </div>
             </h:form>
@@ -290,7 +290,7 @@
                             <p:outputPanel>
 
                                 <h:panelGrid columns="3" cellpadding="5">
-                                    <p:graphicImage url="image/head.png" /> 
+                                    <p:graphicImage url="image/head.png"  width="50px" height="50px"/> 
                                     <h:outputText value="用户名:" />
                                     <h:outputText value="#{comment.uid.uname}" style="font-weight: bold"/>
 

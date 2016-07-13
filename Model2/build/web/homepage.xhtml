@@ -98,13 +98,15 @@
 
 
     <h:body>
-        <p:growl id="growl" sticky="true" showDetail="true" />
 
         <h:form>
             <div id="traverse">
+                <p:growl id="growl" autoUpdate="true"  showDetail="true" life="1000"/>
+
                 <ul>
                     <li class="mouseon"><a href="homepage.xhtml">首页</a></li>
                     <li class="mouseon"><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
+                    <li><h:commandLink value="我们" action="we"></h:commandLink></li>
                     <div id="regist">
                         <c:if test="#{!(userMB.isLogged)}">
                             <h:form id="form">

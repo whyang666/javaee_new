@@ -111,7 +111,7 @@
     </h:head>
     
     <h:body> 
-    <p:growl id="growl" sticky="true" showDetail="true" />
+  
         <h:form>
         <div id="traverse">
                 <ul>
@@ -163,7 +163,7 @@
         <h2>分类</h2>
         <br/>
           <h:form>
-                <p:growl autoUpdate="true"/>
+                <p:growl autoUpdate="true" life="2000"/>
                 <p:menu style="width: 100%">
                     <p:menuitem value="全部" action="#{userMB.findTagP(0)}"/>
                     <p:menuitem value="户外" action="#{userMB.findTagP(1)}"/>

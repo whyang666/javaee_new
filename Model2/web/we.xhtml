@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>吃喝玩乐在北京</title>
+        <style>
+            body{margin:auto;text-align:center;
+                 width: 1300px;
+                 background-image: url(image/b.jpg);
+                 background-size:1750px 1300px;
+                 background-repeat:no-repeat;
+                 background-attachment: fixed;
+            }
+            #traverse{
+                margin-top:0px;
+                margin-bottom: 20px;
+                width:100%;
+                height:35px;
+                background-color:rgba(255,255,255,0.3);
+                text-align:center;
+            }
+            #traverse ul{
+                list-style-type:none;
+                height: 100%;
+                margin:0;
+            }
+            #traverse ul li{
+                width:20%;height: 100%;
+                font-size: 15pt;
+                float:left;
+            } 
+            .mouseon:hover{background-color:rgba(255,255,255,0.7);}
+
+            div#header {
+                text-align:center;
+                margin-bottom:20px;
+                height:100px; width: 90%;
+                background-color:rgba(255,255,255,0.3);
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 20px;
+            }
+
+            div#recommend{
+                width:50%;
+                margin-bottom:20px; margin:auto;}
+            div#footer {
+                text-align:center;
+                background-color:rgba(255,255,255,0.3);
+                width:100%;
+            }
+            li.num{
+                width:80%;height:160px;
+                margin-bottom:20px;
+                background-color:rgba(255,255,255,0.6);
+                list-style-type: none;
+            }
+            li.num:hover{
+                width:90%;
+                background-color:rgba(255,255,255,0.7);}
+            .pic{width: 160px;height:160px;
+                 float:left;
+                 display:inline;
+                 margin:0;}
+            p.brif{
+                width:70%;
+                float:left;
+                text-align:justify;
+                margin:0;
+                display: inline}
+            #traverse{text-decoration: none;}
+
+            div#footer {
+                text-align:center;
+                background-color:rgba(255,255,255,0.3);
+                width:100%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div id="traverse">
+                <ul>
+                    <li class="mouseon">
+                        <p:commandLink  action="homepage" title="首页">
+                            首页
+                        </p:commandLink>
+                    </li>
+                </ul>
+            </div>
+        </h:form>
+
+        <div id="header">
+            <h1>吃喝玩乐在北京</h1>
+        </div>
+        <div id="recommend">
+            <h:form>
+                <ul>
+                    <li class="num">
+                        <h:graphicImage class="pic" url="we/dangrong.jpg"></h:graphicImage>
+                        <br/>
+                        <h1 class="brif">一心为国党光荣</h1>
+                    </li> 
+
+                    <li class="num">
+                        <h:graphicImage class="pic" url="we/mafeifei.jpg"></h:graphicImage>
+                        <br/>
+                        <h1 class="brif">世界奇观马会飞</h1>
+                    </li>
+                    <li class="num">
+                        <h:graphicImage class="pic" url="we/peiyiyao.jpg"></h:graphicImage>
+                        <br/>
+                        <h1 class="brif">肤白貌美瓢瓢瓢</h1>
+                    </li> 
+                    <li class="num">
+                        <h:graphicImage class="pic" url="we/xusong.jpg"></h:graphicImage>
+                        <br/>
+                        <h1 class="brif">沉默寡言徐日天</h1>
+                    </li> 
+                    <li class="num">
+                        <h:graphicImage class="pic" url="we/wanghaoyang.jpg"></h:graphicImage>
+                        <br/>
+                        <h1 class="brif">狂帅叼炸王昊阳</h1>
+                    </li> 
+                </ul>
+            </h:form>
+        </div>
+        <div id="footer">
+            <br/>
+            <p>我们是一个神奇的团队</p>
+            <p>详情请联系40088820820</p>
+        </div>
+
+
+    </h:body>
+</html>
+
