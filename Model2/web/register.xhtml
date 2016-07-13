@@ -5,20 +5,56 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <style>
-       
-        body{margin:auto;text-align:center;
+            body{margin:auto;text-align:center;
                  width: 1300px;
                  background-image: url(image/background.jpg);
-                 background-size:100% 100%;
+                 background-size:1750px 1300px;
                  background-repeat:no-repeat;
                  background-attachment: fixed;
             }
-        div#header {text-align:center; height: 180px; width: 100%; background-color:rgba(255,255,255,0.3); margin-bottom: 30px}
-        div#middle {margin:auto;width: 60%;height:400px;padding-top: 100px;background-color:rgba(255,255,255,0.5);margin-bottom: 30px}
-        div#footer {background-color:rgba(255,255,255,0.5);text-align:center;}
+            #traverse{
+                margin-top:0px;
+                margin-bottom: 20px;
+                width:100%;
+                height:35px;
+                background-color:rgba(255,255,255,0.4);
+                text-align:center;
+            }
+            #traverse ul{
+                list-style-type:none;
+                height: 100%;
+                margin:0;
+            }
+            #traverse ul li{
+                width:20%;height: 100%;
+                font-size: 15pt;
+                float:left;
+            } 
+            .mouseon:hover{background-color:rgba(255,255,255,0.7)}
+
+            div#header {
+                text-align:center;
+                height:100px; width: 90%;
+                background-color:rgba(255,255,255,0.3);
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 20px;
+            }
+            div#middle {margin:auto;width: 90%;height:300px;padding-top: 100px;background-color:rgba(255,255,255,0.3);margin-bottom: 30px}
+            div#footer {background-color:rgba(255,255,255,0.5);text-align:center;}
         </style>
     </h:head>
+    
+    
     <h:body>
+        <h:form>
+            <div id="traverse">
+                <ul>
+                    <li class="mouseon"><a href="homepage.xhtml">首页</a></li>
+                </ul>
+            </div>
+        </h:form>
+
         <div id="header">
             <h1>吃喝玩乐在北京</h1>
         </div>
@@ -29,20 +65,20 @@
                     <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="true" />
                     <p:message for="name"/>
 
-                    <h:outputLabel for="pwd1" value="请输入密码："  style="font-weight:bold"/>
-                    <p:password id="pwd1" value="#{userMB.password}"  label="密码" match="pwd2" required="true"  feedback="true"/>
+                    <p:outputLabel  value="请输入密码："  style="font-weight:bold"/>
+                    <p:password id="pwd1" value="#{userMB.password}" label="password" match="pwd2" required="true"  feedback="true"/>
                     <p:message for="pwd1" />
-                    
-                    <h:outputLabel for="pwd2" value="请再次输入密码："  style="font-weight:bold"/>
-                    <p:password id="pwd2" value="#{userMB.password}" label="第二次输入密码"  required="true" />
+
+                    <p:outputLabel  value="请再次输入密码："  style="font-weight:bold"/>
+                    <p:password id="pwd2" value="#{userMB.password}"  label="password" required="true" />
                     <p:message for="pwd2" />
                 </h:panelGrid>
 
                 <p:commandButton value="注册" update="matchGrid" action="#{userMB.confirmR()}"/>
-                <h:button value="返回" outcome="homepage"  />
+
             </h:form>
-            
-                
+
+
         </div>
 
         <div id="footer">

@@ -31,7 +31,7 @@ public class UserMB {
 
     @EJB
     DataConnectionLocal is;
-
+    private String pp;
     private String name;
     private String password;//数据传递，从html获得值，之后更具情况是否传递给current
     private User current;//记录当前登录账号，未登录无值不为null
@@ -41,6 +41,11 @@ public class UserMB {
     private int itSize;//记录实际初始化items size
     private int index;//记录viewed在initialItems下标
     //
+
+    public String getPp() {
+        return pp;
+    }
+    
     private boolean searched = false;//记录是否已经初始化items
 
     private List<Business> collectedItems;//收藏页的items
@@ -363,6 +368,7 @@ public class UserMB {
             RequestContext.getCurrentInstance().update("growl");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 收藏成功", "请继续浏览"));
+            pp="cancel";
             alreadyBC=true;
             collectedItems = null;
             return "shopdetail";
@@ -528,7 +534,17 @@ public class UserMB {
         
         return "";
     }
-    
+    public String logOut(){
+        isLogged=false;
+        current=null;
+        initialItems=null;
+        initialPlay=null;
+        tagItems=null;
+        tagPlay=null;
+        viewed=null;
+        v=null;
+        return "homepage.xhtml?faces-redirect=true";
+    }
 
 
 }

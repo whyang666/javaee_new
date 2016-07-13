@@ -20,7 +20,7 @@
                 margin-bottom: 20px;
                 width:100%;
                 height:35px;
-                background-color:rgba(255,255,255,0.4);
+                background-color:rgba(255,255,255,0.3);
                 text-align:center;
             }
             #traverse ul{
@@ -33,47 +33,44 @@
                 font-size: 15pt;
                 float:left;
             } 
-            #traverse ul li:hover{
-                float:left;
-                width:20%;
-                font-size: 15pt;
-                background-color:rgba(255,255,255,0.7);
-            }
+            .mouseon:hover{background-color:rgba(255,255,255,0.7);}
+
             div#header {
                 text-align:center;
                 margin-bottom:20px;
-                height:15%; width: 90%;
+                height:100px; width: 90%;
                 background-color:rgba(255,255,255,0.3);
                 margin-left: auto;
                 margin-right: auto;
                 padding-top: 20px;
             }
+            h2{margin-top: 0;}
             div#regist{margin-left: auto;width: 40%;}
 
             div#recommend{
                 width:100%;
-
                 margin-bottom:20px;}
             div#footer {
                 text-align:center;
-                background-color:rgba(255,255,255,0.5);
-                width:100%;height: 30px;
+                background-color:rgba(255,255,255,0.3);
+                width:100%;
             }
             div.sort{width:50%;height:100%;
                      float:left;
                      margin:auto;
             }
-            div#fun{display: inline; }
+            div#fun{display: inline;}
             div#food{display: inline;}
             a{text-decoration: none;}
             li.num{
-                width:100%;height:160px;
+                width:95%;height:160px;
                 margin-bottom:20px;
                 background-color:rgba(255,255,255,0.6);
                 list-style-type: none;
-                border-style: solid;
             }
-            li.num:hover{background-color:rgba(255,255,255,0.8);}
+            li.num:hover{
+                width:100%;
+                background-color:rgba(255,255,255,0.7);}
             .pic{width: 40%;height:160px;
                  float:left;
                  display:inline;
@@ -97,58 +94,54 @@
         <h:form>
             <div id="traverse">
                 <ul>
-                    <li><a href="homepage.xhtml">首页</a></li>
-                    <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
+                    <li class="mouseon"><a href="homepage.xhtml">首页</a></li>
+                    <li class="mouseon"><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
                     <div id="regist">
-                <c:if test="#{!(userMB.isLogged)}">
-                    <h:form id="form">
-                        <p:commandLink update="form:log" onclick="PF('myDialog').show();" title="登陆">
-                            登陆
-                        </p:commandLink>|
-                        <p:commandLink  action="#{userMB.toRegister()}" title="注册">
-                            注册
-                        </p:commandLink>
-                        <p:dialog  header="登陆"  id="myDialog" widgetVar="myDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                            <p:outputPanel id="log" style="text-align:center;">
-                                <p:panelGrid  columns="2" >
-                                    <f:facet name="header"></f:facet>
-                                    <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
-                                    <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="flase"/>
-                                    <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
-                                    <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
-                                </p:panelGrid>
-                                <p:commandButton value="登陆" action="#{userMB.logButton()}" />
-                            </p:outputPanel>
-                        </p:dialog>
-                    </h:form>
-                </c:if>
-                <c:if test="#{userMB.isLogged}">
-                    <h:form>
-                        <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
-                    </h:form>
-                </c:if>    
-            </div> 
+                        <c:if test="#{!(userMB.isLogged)}">
+                            <h:form id="form">
+                                <p:commandLink class="mouseon" update="form:log" onclick="PF('myDialog').show();" title="登陆">
+                                    登陆
+                                </p:commandLink>|
+                                <p:commandLink class="mouseon" action="#{userMB.toRegister()}" title="注册">
+                                    注册
+                                </p:commandLink>
+                                <p:dialog  header="登陆"  id="myDialog" widgetVar="myDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:outputPanel id="log" style="text-align:center;">
+                                        <p:panelGrid  columns="2" >
+                                            <f:facet name="header"></f:facet>
+                                            <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
+                                            <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="flase"/>
+                                            <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
+                                            <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
+                                        </p:panelGrid>
+                                        <p:commandButton value="登陆" action="#{userMB.logButton()}" />
+                                    </p:outputPanel>
+                                </p:dialog>
+                            </h:form>
+                        </c:if>
+                        <c:if test="#{userMB.isLogged}">
+                            <h:form>
+                                <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
+                                <p:commandLink class="mouseon" action="#{userMB.logOut()}" title="注销">
+                                    注销当前用户
+                                </p:commandLink>
+                            </h:form>
+                        </c:if>    
+                    </div> 
                 </ul>
-                 
-            </div>
-            
-           
-            
-            
-        </h:form>
 
+            </div>
+        </h:form>
 
         <div id="header">
             <h1 >吃喝玩乐在北京</h1>
-        
         </div>
-
 
         <div id="recommend">
             <h:form>
                 <div class="sort" id="food">
-                    <h:commandLink action="foodpage">
-                        <h2>今天吃什么</h2>
+                    <h:commandLink  action="foodpage">
+                        <h2 class="mouseon">今天吃什么</h2>
                     </h:commandLink>
 
                     <ul>
@@ -160,7 +153,6 @@
                                     <h3>#{userMB.initialItems[0].bname}</h3>
                                     <p>地址：#{userMB.initialItems[0].baddress}</p>
                                     <p>电话：#{userMB.initialItems[0].btel}</p>
-                                    <p>简介：#{userMB.initialItems[0].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -172,7 +164,6 @@
                                     <h3>#{userMB.initialItems[1].bname}</h3>
                                     <p>地址：#{userMB.initialItems[1].baddress}</p>
                                     <p>电话：#{userMB.initialItems[1].btel}</p>
-                                    <p>简介：#{userMB.initialItems[1].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -184,7 +175,6 @@
                                     <h3>#{userMB.initialItems[2].bname}</h3>
                                     <p>地址：#{userMB.initialItems[2].baddress}</p>
                                     <p>电话：#{userMB.initialItems[2].btel}</p>
-                                    <p>简介：#{userMB.initialItems[2].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -196,7 +186,6 @@
                                     <h3>#{userMB.initialItems[3].bname}</h3>
                                     <p>地址：#{userMB.initialItems[3].baddress}</p>
                                     <p>电话：#{userMB.initialItems[3].btel}</p>
-                                    <p>简介：#{userMB.initialItems[3].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -208,7 +197,6 @@
                                     <h3>#{userMB.initialItems[4].bname}</h3>
                                     <p>地址：#{userMB.initialItems[4].baddress}</p>
                                     <p>电话：#{userMB.initialItems[4].btel}</p>
-                                    <p>简介：#{userMB.initialItems[4].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -220,7 +208,6 @@
                                     <h3>#{userMB.initialItems[5].bname}</h3>
                                     <p>地址：#{userMB.initialItems[5].baddress}</p>
                                     <p>电话：#{userMB.initialItems[5].btel}</p>
-                                    <p>简介：#{userMB.initialItems[5].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -232,7 +219,6 @@
                                     <h3>#{userMB.initialItems[6].bname}</h3>
                                     <p>地址：#{userMB.initialItems[6].baddress}</p>
                                     <p>电话：#{userMB.initialItems[6].btel}</p>
-                                    <p>简介：#{userMB.initialItems[6].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -244,7 +230,6 @@
                                     <h3>#{userMB.initialItems[7].bname}</h3>
                                     <p>地址：#{userMB.initialItems[7].baddress}</p>
                                     <p>电话：#{userMB.initialItems[7].btel}</p>
-                                    <p>简介：#{userMB.initialItems[7].binfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -253,7 +238,7 @@
                 <!-- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk -->
                 <div class="sort" id="fun">
                     <h:commandLink action="playpage">
-                        <h2>找点乐子</h2>
+                        <h2 class="mouseon">找点乐子</h2>
                     </h:commandLink>
 
                     <ul>
@@ -265,7 +250,6 @@
                                     <h3>#{userMB.initialPlay[0].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[0].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[0].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[0].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -277,7 +261,6 @@
                                     <h3>#{userMB.initialPlay[1].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[1].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[1].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[1].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -289,7 +272,6 @@
                                     <h3>#{userMB.initialPlay[2].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[2].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[2].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[2].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -301,7 +283,6 @@
                                     <h3>#{userMB.initialPlay[3].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[3].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[3].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[3].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -313,7 +294,6 @@
                                     <h3>#{userMB.initialPlay[4].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[4].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[4].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[4].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -325,7 +305,6 @@
                                     <h3>#{userMB.initialPlay[5].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[5].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[5].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[5].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -337,7 +316,6 @@
                                     <h3>#{userMB.initialPlay[6].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[6].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[6].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[6].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -349,7 +327,6 @@
                                     <h3>#{userMB.initialPlay[7].pname}</h3>
                                     <p>地址：#{userMB.initialPlay[7].paddress}</p>
                                     <p>电话：#{userMB.initialPlay[7].ptel}</p>
-                                    <p>简介：#{userMB.initialPlay[7].pinfo}</p>
                                 </p>
                             </li> 
                         </h:commandLink>
@@ -361,6 +338,7 @@
         </div>
 
         <div id="footer">
+            <br/>
             <p>我们是一个神奇的团队</p>
             <p>详情请联系40088820820</p>
         </div>

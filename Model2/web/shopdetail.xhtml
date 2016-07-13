@@ -9,70 +9,71 @@
         <title>吃喝玩乐在北京</title>
         <style>
             body{
-                background-image:url(background.jpg);
-                background-size:1500px 1000px;
-                background-repeat:no-repeat;
-                background-attachment: fixed;
-                margin:auto;
-                padding:0px;
-                font-size:12px;
-                font-family:Arial;       
+                margin:auto;text-align:center;
+                 width: 1300px;
+                 background-image: url(image/background.jpg);
+                 background-size:1750px 1300px;
+                 background-repeat:no-repeat;
+                 background-attachment: fixed;   
             }
             #container{
                 margin:0px auto;
                 width:80%;
-                background-color:rgba(255,255,255,0.3);
+                background-color:rgba(255,255,255,0.4);
             }
             #traverse{
-                margin:0px;
+                margin-top:0px;
+                margin-bottom: 20px;
                 width:100%;
-                height:40px;
-                background-color:rgba(255,255,255,0.3);
-                padding:0px;
-            }
-            #traverse a{
-                text-decoration: none;
+                height:35px;
+                background-color:rgba(255,255,255,0.4);
+                text-align:center;
             }
             #traverse ul{
                 list-style-type:none;
-                text-align:center;
-                margin:15px;
+                height: 100%;
+                margin:0;
             }
-            #traverse ul li{
+             #traverse ul li{
+                width:20%;
+                height: 100%;
+                font-size: 15pt;
                 float:left;
-                text-align:center;
+            } 
+            #traverse ul li:hover{
+                float:left;
                 width:20%;
                 font-size: 15pt; 
+                background-color:rgba(255,255,255,0.7);
             }
             #header{
                 width: 100%;
-                height:200px;
+                height:15%;
                 text-align:center;
                 margin-bottom:20px; 
                 background-color:rgba(255,255,255,0.3);
-                font-size: 12pt;
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 20px;
             }
             #regist{
                 text-align:right;
                 margin-left:auto;
-                width: 20%
+                width: 40%
             }
             #businessinfo{
                 margin:0px;
                 width:100%;
                 height:150px;
-                background-color:rgba(255,255,255,0.3);
+                background-color:rgba(255,255,255,0.5);
                 padding:0px;
                 border-bottom-width: 2px;
                 border-bottom-color: #F0FFFF;
                 border-bottom-style: dashed;    
+                text-align:center;
             }
             .info-text{
-                font-size: 18pt; 
-                line-height:11pt ;  
-                color:#5F6468;
-                text-align:center;
-                font-family: Verdana;
+                text-align:left;
             }
             #left{
                 margin:0px;
@@ -80,7 +81,8 @@
                 height:360px;
                 background-color:rgba(255,255,255,0.3);
                 padding:0px 0px 5px 0px;
-                color:#d8ecff;
+                text-align:justify;
+                display: inline;
                 float:left;
             }
             #rotateimage:hover{ 
@@ -98,9 +100,11 @@
             .right-text{
                 font-size: 18pt; 
                 font-family: Verdana; 
-                line-height: 11pt ;  
-                color:#5F6468;
+                text-align:justify;
+                margin:0;
+                display: inline;
             }
+
             #footer{
                 margin:auto;
                 width:100%;
@@ -115,69 +119,69 @@
                 font-size: 8pt; 
                 font-family: Verdana; 
                 line-height: 11pt ;  
-                color:#5F6468;
+                color:#708090;
             }
-            .image1 {
-                margin-top: 3%;
-                float:right;
-                height:100%;
-                width:100%;
+            .uibutton{
+                background:rgba(255,255,255,0.3); 
             }
-
-
-
 
         </style>
     </h:head>
     <h:body>
         <!--整体外层容器-->
         <div id="container">
+            <h:form>
             <div id="traverse">
                 <ul>
                     <li><a href="homepage.xhtml">首页</a></li>
                     <li><a href="foodpage.xhtml">返回列表</a></li>
-                    <h:form>
-                        <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"/></li> 
-                    </h:form>
+                    <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
                     <li><a href="http://jwc.bupt.edu.cn/">联系我们</a></li> 
                 </ul>
             </div>
+            </h:form>
             <!--header-->
             <div id="header">
                 <h1 >吃喝玩乐在北京</h1>
                 <div id="regist">
                     <c:if test="#{!(userMB.isLogged)}">
-                        <h:form>
-                            <p:outputPanel style="text-align:right;">
-                                <p:panelGrid  columns="3" >
-                                    <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
-                                    <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="true"/>
-                                    <p:message for="name"/>
-                                    <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
-                                    <p:password id="pwd" value="#{userMB.password}"  label="密码" required="true" />
-                                    <p:message for="pwd" />                    
-                                </p:panelGrid>
-
-                                <p:commandButton id="login" value="登陆" action="#{userMB.logButton()}" />
-                                <p:commandButton value="注册" action="#{userMB.toRegister()}" />
-                            </p:outputPanel>
+                        <h:form id="form">
+                            <p:commandLink update="form:log" onclick="PF('myDialog').show();" title="登陆">
+                                登陆
+                            </p:commandLink>|
+                            <p:commandLink  action="#{userMB.toRegister()}" title="注册">
+                                注册
+                            </p:commandLink>
+                            <p:dialog  header="登陆"  id="myDialog" widgetVar="myDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                <p:outputPanel id="log" style="text-align:center;">
+                                    <p:panelGrid  columns="2" >
+                                        <f:facet name="header"></f:facet>
+                                        <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
+                                        <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="flase"/>
+                                        <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
+                                        <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
+                                    </p:panelGrid>
+                                    <p:commandButton value="登陆" action="#{userMB.logButton()}" />
+                                </p:outputPanel>
+                            </p:dialog>
                         </h:form>
                     </c:if>
                     <c:if test="#{userMB.isLogged}">
                         <h:form>
                             <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
                         </h:form>
-                    </c:if>    
+                    </c:if>     
                 </div>
             </div>
 
 
-            <div id="businessinfo">                
+            <div id="businessinfo">                              
+                <h4>商家详情介绍</h4>                                                              
                 <div class="info-text">
-                    <h4>商家介绍</h4>                                                              
+                <h3>锦江乐园是上海创办的大型专业化游乐园。 园内有各类经典游乐项目30余项，可满足各年龄段游客的不同需求。 
+                    乐园不断推陈出新，近年来从欧洲引进了游乐设施 “巨型悬挂回旋过山车”、“摩托过山车”，也增添了适合亲子游玩的“罗马假日”项目。 
+                    来锦江乐园，体验多彩的游玩乐趣！ 园内有各类经典游乐项目30余项，可满足各年龄段游客的不同需求。</h3>
                 </div>
-                <h3>&nbsp;&nbsp;#{userMB.viewed.binfo}</h3>
-                <br/>
             </div>
             <!--left-->
             <div id="left" >
@@ -190,21 +194,27 @@
                     <h:form>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
                         <p:growl id="growl" life="2000" />
-
-                            
-                        
-  
-                            <p:commandButton action="#{userMB.cancelC()}" value="取消收藏" id="noncollect" update="growl" />
-                        
-                           <p:commandButton action="#{userMB.confirmC()}" value="收藏" id="collect" update="growl" />
+                            <p:commandButton action="#{userMB.cancelC()}" value="取消收藏" id="noncollect" update="growl" class="uibutton" />                      
+                           <p:commandButton action="#{userMB.confirmC()}" value="收藏" id="collect" update="growl" class="uibutton"/>
                     </h:form>
                     <ul>
-<!--                        <li>商家服务：提供免费WIFI</li><br/>
                         <li>营业时间：10:00-20:00</li><br/>
-                        <li>人均：¥100</li><br/>-->
                         <li>餐厅地址：#{userMB.viewed.baddress}</li><br/>
                         <li>联系电话：#{userMB.viewed.btel}</li><br/>                                           
                     </ul>
+                </div>
+            </div>
+            <br/>
+            <br/>            
+            <div id="tip">     
+                <h4>吃喝玩乐小贴士</h4>                                                              
+                <div class="info-text">
+                <h3>锦江乐园是上海创办的大型专业化游乐园。 园内有各类经典游乐项目30余项，可满足各年龄段游客的不同需求。 
+                    乐园不断推陈出新，近年来从欧洲引进了游乐设施 “巨型悬挂回旋过山车”、“摩托过山车”，也增添了适合亲子游玩的“罗马假日”项目。
+                    来锦江乐园，体验多彩的游玩乐趣！ 园内有各类经典游乐项目30余项，可满足各年龄段游客的不同需求。 
+                    乐园不断推陈出新，近年来从欧洲引进了游乐设施 “巨型悬挂回旋过山车”、“摩托过山车”，也增添了适合亲子游玩的“罗马假日”项目 园内有各类经典游乐项目30余项，可满足各年龄段游客的不同需求。
+                    乐园不断推陈出新，近年来从欧洲引进了游乐设施 “巨型悬挂回旋过山车”、“摩托过山车”，也增添了适合亲子游玩的“罗马假日”项目 园内有各类经典游乐项目30余项，可满足各年龄段游客的不同需求。 
+                    乐园不断推陈出新，近年来从欧洲引进了游乐设施 “巨型悬挂回旋过山车”、“摩托过山车”，也增添了适合亲子游玩的“罗马假日”项目</h3>
                 </div>
             </div>
             <!--footer-->
@@ -215,7 +225,6 @@
             </div>           
         </div>
         <br/>
-        <h:link outcome="welcomePrimefaces" value="Primefaces 欢迎使用页" />
     </h:body>
 </html>
 

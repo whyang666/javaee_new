@@ -3,54 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui" 
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>吃喝玩乐在北京</title>
-        <!--<link href="css/foodpagecss.css" rel = "stylesheet" type = "text/css"></link>-->
         <style>
-            body{
-                margin:auto;
-                width: 1300px; 
-                background-image: url(background.jpg);
-                background-repeat:no-repeat;
-                background-attachment: fixed;
+              body{margin:auto;text-align:center;
+                 width: 1300px;
+                 background-image: url(image/background.jpg);
+                 background-size:1750px 1300px;
+                 background-repeat:no-repeat;
+                 background-attachment: fixed;
             }
-
-            #traverse{
-                margin:0px;
+             #traverse{
+                margin-top:0px;
+                margin-bottom: 20px;
                 width:100%;
-                height:40px;
-                background-color:rgba(255,255,255,0.9);
-                padding:0px;
+                height:35px;
+                background-color:rgba(255,255,255,0.3);
+                text-align:center;
             }
             #traverse a{
-                text-decoration: none;
+               text-decoration: none;
             }
             #traverse ul{
                 list-style-type:none;
-                text-align:center;
-                margin:15px;
+                height: 100%;
+                margin:0;
             }
             #traverse ul li{
+                width:20%;height: 100%;
+                font-size: 15pt;
                 float:left;
-                text-align:center;
+            } 
+            #traverse ul li:hover{
+                float:left;
                 width:20%;
-                font-size: 15pt; 
+                font-size: 15pt;
+                background-color:rgba(255,255,255,0.7);
             }
-
-            #header{
-                margin:auto; 
-                width: 100%; 
-                height:200px;
+            #header {
                 text-align:center;
-                font-size: 20px;
-                background-color:rgba(255,255,255,0.5);
-            }
-
-            #regist{
+                margin-bottom:20px;
+                height:15%; width: 90%;
+                background-color:rgba(255,255,255,0.3);
                 margin-left: auto;
-                width: 40%;
+                margin-right: auto;
+                padding-top: 20px;
             }
+            #regist{margin-left: auto;width: 40%;}
 
             #left{
                 margin:auto;
@@ -83,39 +84,50 @@
                 background-color: rgba(255,255,255,0.9);
                 float:left;
             }
+            .ui-menu .ui-menuitem-link{
+                font-weight:500;
+                line-height: 80px;
+            }
+            .ui-menu .ui-menu-child{
+                background: rgba(255,255,255,0.3);
+            }
+            .ui-widget-content{
+                background: rgba(255,255,255,0.3);
+            }
+            .ui-widget-header{
+                background: rgba(255,255,255,0.7);
+            }
         </style>
     </h:head>
 
     <h:body> 
+        <p:growl id="growl" sticky="true" showDetail="true" />
         <h:form>
-            <div id="traverse">
+        <div id="traverse">
                 <ul>
                     <li><a href="homepage.xhtml">首页</a></li>
                     <li><h:commandLink value="我的收藏" action="#{userMB.toCol()}"></h:commandLink></li>
-                </ul>
-            </div>
-        </h:form>
-
-        <div id="header">
-            <h1 >吃喝玩乐在北京</h1>
-
-            <div id="regist">
+                <div id="regist">
                 <c:if test="#{!(userMB.isLogged)}">
-                    <h:form>
-                        <p:outputPanel style="text-align:center;">
-                            <p:panelGrid  columns="3" >
-                                <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
-                                <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="true"/>
-                                <p:message for="name"/>
-
-                                <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
-                                <p:password id="pwd" value="#{userMB.password}"  label="密码" required="true" />
-                                <p:message for="pwd" />                    
-
-                            </p:panelGrid>
-                            <p:commandButton id="login" value="登录" action="#{userMB.logButton()}" />
-                            <p:commandButton value="注册" action="#{userMB.toRegister()}" />
-                        </p:outputPanel>
+                    <h:form id="form">
+                        <p:commandLink update="form:log" onclick="PF('myDialog').show();" title="登陆">
+                            登陆
+                        </p:commandLink>|
+                        <p:commandLink  action="#{userMB.toRegister()}" title="注册">
+                            注册
+                        </p:commandLink>
+                        <p:dialog  header="登陆"  id="myDialog" widgetVar="myDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="log" style="text-align:center;">
+                                <p:panelGrid  columns="2" >
+                                    <f:facet name="header"></f:facet>
+                                    <p:outputLabel for="name" value="请输入账号：" style="font-weight:bold"/>
+                                    <p:inputText  id="name" value="#{userMB.name}" label="用户名" required="flase"/>
+                                    <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
+                                    <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
+                                </p:panelGrid>
+                                <p:commandButton value="登陆" action="#{userMB.logButton()}" />
+                            </p:outputPanel>
+                        </p:dialog>
                     </h:form>
                 </c:if>
                 <c:if test="#{userMB.isLogged}">
@@ -123,15 +135,22 @@
                         <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
                     </h:form>
                 </c:if>    
-            </div>
+                </div> 
+            </ul> 
         </div>
+    </h:form>
+
+        <div id="header">
+            <h1 >吃喝玩乐在北京</h1>
+        </div>
+
 
         <div id = "left">
             <h2>分类</h2>
             <br/>
             <h:form>
                 <p:growl autoUpdate="true"/>
-                <p:menu style="width: 90%">
+                <p:menu style="width: 100%">
                     <p:menuitem value="全部" action="#{userMB.findTag(0)}"/>
                     <p:menuitem value="自助" action="#{userMB.findTag(1)}"/>
                     <p:menuitem value="西餐" action="#{userMB.findTag(3)}"/>
