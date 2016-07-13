@@ -268,14 +268,13 @@
                 <h:form>               
                     <h3 style="margin-top: 0">我要评论！！！</h3>
                     <p>希望您对此商家提出宝贵意见 </p>
-                    <p:growl id="growl" life="2000" />
                     <p:inputTextarea rows="10" cols="50" completeMethod="{inputTextareaView.completeArea}" queryDelay="750" minQueryLength="4" value="#{userMB.comments}"/>
                     <br/>
                     <p:commandButton value="提交" action="#{userMB.submitComments()}" />
                 </h:form>
             </div>
             <div id="commandother">                                                                 
-                                
+                <h:form>                  
                     <p:dataScroller value="#{userMB.shopComments}" var="comment" chunkSize="5">
                         <f:facet name="header">
                             其他会员评论
@@ -298,7 +297,7 @@
 
                         </h:panelGrid>
                     </p:dataScroller>
-                          
+                </h:form>             
 
             </div>
             <!--footer-->
