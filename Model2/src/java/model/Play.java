@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,13 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Play.findByPinfo", query = "SELECT p FROM Play p WHERE p.pinfo = :pinfo")})
 public class Play implements Serializable {
 
-    @OneToMany(mappedBy = "idp")
-    private Collection<CollPlay> collPlayCollection;
-
-
-    @OneToMany(mappedBy = "pid")
-    private Collection<Pt> ptCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,8 +60,12 @@ public class Play implements Serializable {
     @Size(max = 255)
     @Column(name = "Pinfo")
     private String pinfo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pid")
+    private Collection<Commentp> commentpCollection;
+    @OneToMany(mappedBy = "pid")
+    private Collection<Pt> ptCollection;
     @OneToMany(mappedBy = "idp")
-    private Collection<Bp> bpCollection;
+    private Collection<CollPlay> collPlayCollection;
 
     public Play() {
     }
@@ -125,12 +123,30 @@ public class Play implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Bp> getBpCollection() {
-        return bpCollection;
+    public Collection<Commentp> getCommentpCollection() {
+        return commentpCollection;
     }
 
-    public void setBpCollection(Collection<Bp> bpCollection) {
-        this.bpCollection = bpCollection;
+    public void setCommentpCollection(Collection<Commentp> commentpCollection) {
+        this.commentpCollection = commentpCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pt> getPtCollection() {
+        return ptCollection;
+    }
+
+    public void setPtCollection(Collection<Pt> ptCollection) {
+        this.ptCollection = ptCollection;
+    }
+
+    @XmlTransient
+    public Collection<CollPlay> getCollPlayCollection() {
+        return collPlayCollection;
+    }
+
+    public void setCollPlayCollection(Collection<CollPlay> collPlayCollection) {
+        this.collPlayCollection = collPlayCollection;
     }
 
     @Override
@@ -156,27 +172,6 @@ public class Play implements Serializable {
     @Override
     public String toString() {
         return "model.Play[ pid=" + pid + " ]";
-    }
-
-
-
-
-    @XmlTransient
-    public Collection<Pt> getPtCollection() {
-        return ptCollection;
-    }
-
-    public void setPtCollection(Collection<Pt> ptCollection) {
-        this.ptCollection = ptCollection;
-    }
-
-    @XmlTransient
-    public Collection<CollPlay> getCollPlayCollection() {
-        return collPlayCollection;
-    }
-
-    public void setCollPlayCollection(Collection<CollPlay> collPlayCollection) {
-        this.collPlayCollection = collPlayCollection;
     }
     
 }

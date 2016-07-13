@@ -55,7 +55,7 @@ public class Tag implements Serializable {
     public Tag(Integer tid) {
         this.tid = tid;
     }
-    public Tag(String tname){
+    public Tag(String tname) {
         this.tname = tname;
     }
 

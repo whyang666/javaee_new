@@ -47,13 +47,14 @@
             h2{margin-top: 0;}
             div#regist{margin-left: auto;width: 40%;}
 
-            div#recommend{width:80%;height:80%;
+            div#recommend{width:90%;height:70%;
                           margin:auto;
+                          background-color:rgba(255,255,255,0.5);
             }
-            div.sort{width:100%;height:100%;
-                     float:left;
-                     margin:auto;
+            div.sort{width:50%;height:100%;
                      display: inline;}
+            div#chi{float:left;}
+            div#wan{float:right;}
             a{text-decoration: none;}
             li.num{width:100%;height:160px;
                    margin-bottom:20px;
@@ -80,19 +81,41 @@
             .ui-menu .ui-menu-child{
                 background: rgba(255,255,255,0.3);
             }
-            .ui-widget-content{
-                background: rgba(255,255,255,0.3);
-            }
+            
             .ui-widget-header{
                 background: rgba(255,255,255,0.7);
+            }
+            div#footer {
+                text-align:center;
+                background-color:rgba(255,255,255,0.3);
+                width:100%;
+            }
+            .ui-widget-content {
+                background: rgba(255,255,255,0.6);
+            }
+            .ui-widget-header {
+                background: rgba(255,255,255,0.6);
+            }
+            .ui-panelgrid .ui-panelgrid-cell {
+                border-color: rgba(255,255,255,0.0);
             }
         </style>
     </h:head>
     <h:body>
+        <p:growl id="growl" sticky="true" showDetail="true" />
         <h:form>
             <div id="traverse">
                 <ul>
                     <li class="mouseon"><a href="homepage.xhtml">首页</a></li>
+                    <div id="regist">
+                        <h:form>
+                            <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
+                            &nbsp;|
+                                <p:commandLink class="mouseon" action="#{userMB.logOut()}" title="注销">
+                                    注销
+                                </p:commandLink>
+                        </h:form>
+                    </div>
                 </ul>
 
             </div>
@@ -104,18 +127,35 @@
 
         <div id="recommend">
             <h:form>
-                <div class="sort">
+                <div class="sort" id="chi">
+                    <h2>吃的收藏</h2>
                     <p:dataGrid var="item" value="#{userMB.collectedItems}" columns="2"
-                                rows="12" paginator="true"
+                                rows="8" paginator="true"
                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                >
-                        <f:facet name="header">
-                            #{userMB.name}的收藏
-                        </f:facet>
+                                style="width:150px; height:150px">
+                       
                          <p:panel header=" #{item.bname}" style="text-align:center">
                         <h:panelGrid columns="1" style="width:100%">
                             <p:commandLink action="#{userMB.onSpecialItemSelected(item)}">
                                 <p:graphicImage url="business/#{item.bpic}" width="200px" height="200px"/> 
+                            </p:commandLink>
+                        </h:panelGrid>
+                    </p:panel>
+
+                    </p:dataGrid>
+                </div>
+                
+                
+                <div class="sort" id="wan"> 
+                    <h2>玩的收藏</h2>
+                    <p:dataGrid var="item" value="#{userMB.collectedPlay}" columns="2"
+                                rows="8" paginator="true"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                >
+                         <p:panel header=" #{item.pname}" style="text-align:center">
+                        <h:panelGrid columns="1" style="width:100%">
+                            <p:commandLink action="#{userMB.onSpecialPlaySelected(item)}">
+                                <p:graphicImage url="play/#{item.ppic}" width="200px" height="200px"/> 
                             </p:commandLink>
                         </h:panelGrid>
                     </p:panel>
@@ -127,6 +167,12 @@
 
 
             </h:form>
+        </div>
+        
+        <div id="footer">
+            <br/>
+            <p>我们是一个神奇的团队</p>
+            <p>详情请联系40088820820</p>
         </div>
     </h:body>
 </html>

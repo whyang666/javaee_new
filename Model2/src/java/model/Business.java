@@ -60,6 +60,8 @@ public class Business implements Serializable {
     @Column(name = "Binfo")
     private String binfo;
     @OneToMany(mappedBy = "bid")
+    private Collection<Comment> commentCollection;
+    @OneToMany(mappedBy = "bid")
     private Collection<Bt> btCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idb")
     private Collection<Coll> collCollection;
@@ -117,6 +119,15 @@ public class Business implements Serializable {
 
     public void setBinfo(String binfo) {
         this.binfo = binfo;
+    }
+
+    @XmlTransient
+    public Collection<Comment> getCommentCollection() {
+        return commentCollection;
+    }
+
+    public void setCommentCollection(Collection<Comment> commentCollection) {
+        this.commentCollection = commentCollection;
     }
 
     @XmlTransient

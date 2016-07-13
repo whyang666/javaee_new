@@ -9,6 +9,8 @@ import java.util.List;
 import javax.ejb.Local;
 import model.Business;
 import model.Coll;
+import model.Comment;
+import model.Commentp;
 import model.Play;
 import model.User;
 
@@ -76,6 +78,18 @@ public interface DataConnectionLocal {
     void confirmPC(User current, Play v);
 
     boolean checkBC(User current, Business viewed);
+
+   // void persistComment(User current, Business viewed, String comments);
+
+    List<Comment> findCommentsByBusiness(Business viewed);
+
+    void persistPComment(User current, Play v, String comments);
+
+    List<Commentp> findCommentByPlay(Play v);
+
+    void persistComment(User current, Business viewed, String comments);
+
+   
     
     
     

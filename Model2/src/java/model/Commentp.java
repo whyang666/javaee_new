@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,12 +26,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author 昊阳
  */
 @Entity
-@Table(name = "bp")
+@Table(name = "Commentp")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Bp.findAll", query = "SELECT b FROM Bp b"),
-    @NamedQuery(name = "Bp.findById", query = "SELECT b FROM Bp b WHERE b.id = :id")})
-public class Bp implements Serializable {
+    @NamedQuery(name = "Commentp.findAll", query = "SELECT c FROM Commentp c"),
+    @NamedQuery(name = "Commentp.findById", query = "SELECT c FROM Commentp c WHERE c.id = :id"),
+    @NamedQuery(name = "Commentp.findByCommments", query = "SELECT c FROM Commentp c WHERE c.commments = :commments")})
+public class Commentp implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,18 +40,28 @@ public class Bp implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "idp", referencedColumnName = "pid")
-    @ManyToOne
-    private Play idp;
-    @JoinColumn(name = "idu", referencedColumnName = "ID")
-    @ManyToOne
-    private User idu;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "commments")
+    private String commments;
+    @JoinColumn(name = "uid", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private User uid;
+    @JoinColumn(name = "pid", referencedColumnName = "pid")
+    @ManyToOne(optional = false)
+    private Play pid;
 
-    public Bp() {
+    public Commentp() {
     }
 
-    public Bp(Integer id) {
+    public Commentp(Integer id) {
         this.id = id;
+    }
+
+    public Commentp(Integer id, String commments) {
+        this.id = id;
+        this.commments = commments;
     }
 
     public Integer getId() {
@@ -59,20 +72,28 @@ public class Bp implements Serializable {
         this.id = id;
     }
 
-    public Play getIdp() {
-        return idp;
+    public String getCommments() {
+        return commments;
     }
 
-    public void setIdp(Play idp) {
-        this.idp = idp;
+    public void setCommments(String commments) {
+        this.commments = commments;
     }
 
-    public User getIdu() {
-        return idu;
+    public User getUid() {
+        return uid;
     }
 
-    public void setIdu(User idu) {
-        this.idu = idu;
+    public void setUid(User uid) {
+        this.uid = uid;
+    }
+
+    public Play getPid() {
+        return pid;
+    }
+
+    public void setPid(Play pid) {
+        this.pid = pid;
     }
 
     @Override
@@ -85,10 +106,10 @@ public class Bp implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bp)) {
+        if (!(object instanceof Commentp)) {
             return false;
         }
-        Bp other = (Bp) object;
+        Commentp other = (Commentp) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -97,7 +118,7 @@ public class Bp implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Bp[ id=" + id + " ]";
+        return "model.Commentp[ id=" + id + " ]";
     }
     
 }

@@ -36,11 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUpassword", query = "SELECT u FROM User u WHERE u.upassword = :upassword")})
 public class User implements Serializable {
 
-    @OneToMany(mappedBy = "idu")
-    private Collection<CollPlay> collPlayCollection;
-
-
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,10 +48,14 @@ public class User implements Serializable {
     @Size(max = 255)
     @Column(name = "Upassword")
     private String upassword;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
+    private Collection<Comment> commentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
+    private Collection<Commentp> commentpCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idu")
     private Collection<Coll> collCollection;
     @OneToMany(mappedBy = "idu")
-    private Collection<Bp> bpCollection;
+    private Collection<CollPlay> collPlayCollection;
 
     public User() {
     }
@@ -90,6 +89,24 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Comment> getCommentCollection() {
+        return commentCollection;
+    }
+
+    public void setCommentCollection(Collection<Comment> commentCollection) {
+        this.commentCollection = commentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Commentp> getCommentpCollection() {
+        return commentpCollection;
+    }
+
+    public void setCommentpCollection(Collection<Commentp> commentpCollection) {
+        this.commentpCollection = commentpCollection;
+    }
+
+    @XmlTransient
     public Collection<Coll> getCollCollection() {
         return collCollection;
     }
@@ -99,12 +116,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Bp> getBpCollection() {
-        return bpCollection;
+    public Collection<CollPlay> getCollPlayCollection() {
+        return collPlayCollection;
     }
 
-    public void setBpCollection(Collection<Bp> bpCollection) {
-        this.bpCollection = bpCollection;
+    public void setCollPlayCollection(Collection<CollPlay> collPlayCollection) {
+        this.collPlayCollection = collPlayCollection;
     }
 
     @Override
@@ -130,17 +147,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "model.User[ id=" + id + " ]";
-    }
-
-
-
-    @XmlTransient
-    public Collection<CollPlay> getCollPlayCollection() {
-        return collPlayCollection;
-    }
-
-    public void setCollPlayCollection(Collection<CollPlay> collPlayCollection) {
-        this.collPlayCollection = collPlayCollection;
     }
     
 }

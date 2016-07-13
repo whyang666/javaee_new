@@ -31,7 +31,7 @@
                 float:left;
             } 
             .mouseon:hover{background-color:rgba(255,255,255,0.7)}
-
+            a{text-decoration: none;}
             div#header {
                 text-align:center;
                 height:100px; width: 90%;
@@ -44,17 +44,23 @@
             div#footer {background-color:rgba(255,255,255,0.5);text-align:center;}
         </style>
     </h:head>
-    
-    
+
+
     <h:body>
+        <p:growl id="growl" sticky="true" showDetail="true" />
         <h:form>
             <div id="traverse">
                 <ul>
-                    <li class="mouseon"><a href="homepage.xhtml">首页</a></li>
+                    <li class="mouseon">
+
+                        <p:commandLink  action="homepage" title="首页">
+                            首页
+                        </p:commandLink>
+                    </li>
                 </ul>
             </div>
         </h:form>
-         <p:growl id="growl" sticky="true" showDetail="true" />
+
         <div id="header">
             <h1>吃喝玩乐在北京</h1>
         </div>

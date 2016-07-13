@@ -5,6 +5,7 @@
  */
 package sessionbean;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,6 +17,8 @@ import model.Bt;
 import model.Business;
 import model.Coll;
 import model.CollPlay;
+import model.Comment;
+import model.Commentp;
 import model.Play;
 import model.Pt;
 import model.User;
@@ -437,6 +440,75 @@ public class DataConnection implements DataConnectionLocal {
         }
         return false;
     }
+
+//    @Override
+//    public void persistComment(User current, Business viewed, String comments) {
+//        Comment c = new Comment();
+//        c.setUid(current);
+//        c.setBid(viewed);
+//        c.setComments(comments);
+//        em.persist(c);    
+//        int x=3;
+//    }
+    
+    
+    
+    @Override
+    public List<Comment> findCommentsByBusiness(Business viewed) {
+        Query q = em.createNamedQuery("Comment.findAll");
+       List<Comment> x=q.getResultList();
+       int k=x.size();
+       List<Comment> returned = new ArrayList<Comment>();
+       if(k==0) return null;
+       else{
+           for(int i=0;i<=k-1;i++){
+               if(x.get(i).getBid().equals(viewed))
+                   returned.add(x.get(i));
+           }
+       }
+       return returned;
+
+    }
+
+    @Override
+    public void persistPComment(User current, Play v, String comments) {
+         Commentp x = new Commentp();
+        x.setCommments(comments);
+        x.setUid(current);
+        x.setPid(v);
+        em.persist(x);
+    }
+
+    @Override
+    public List<Commentp> findCommentByPlay(Play v) {
+       Query q = em.createNamedQuery("Commentp.findAll");
+        List<Commentp> x=q.getResultList();
+        int k=x.size();
+        List<Commentp> returned=new ArrayList<Commentp>();
+        if(k==0) return null;
+        else{
+            for(int i=0;i<=k-1;i++){
+                if(x.get(i).getPid().equals(v))
+                    returned.add(x.get(i));
+            }
+        }
+        return returned;
+
+    }
+
+    @Override
+    public void persistComment(User current, Business viewed, String comments) {
+        Comment c = new Comment();
+        c.setBid(viewed);
+        c.setUid(current);
+        c.setComments(comments);
+        em.persist(c);
+    }
+    
+    
+
+  
+    
     
     
     

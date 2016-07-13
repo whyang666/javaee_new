@@ -99,6 +99,15 @@
             .ui-widget-header{
                 background: rgba(255,255,255,0.7);
             }
+            .ui-widget-content {
+                background: rgba(255,255,255,0.6);
+            }
+            .ui-widget-header {
+                background: rgba(255,255,255,0.6);
+            }
+            .ui-panelgrid .ui-panelgrid-cell {
+                border-color: rgba(255,255,255,0.0);
+            }
         </style>
     </h:head>
 
@@ -127,7 +136,7 @@
                                     <h:outputLabel for="pwd" value="请输入密码："  style="font-weight:bold"/>
                                     <p:password id="pwd" value="#{userMB.password}"  label="密码" required="flase" />
                                 </p:panelGrid>
-                                <p:commandButton value="登陆" action="#{userMB.logButton()}" />
+                                <p:commandButton value="登陆" action="#{userMB.logButton5()}" />
                             </p:outputPanel>
                         </p:dialog>
                     </h:form>
@@ -135,6 +144,11 @@
                 <c:if test="#{userMB.isLogged}">
                     <h:form>
                         <p:outputLabel value="您好，#{userMB.name}" style="font-weight:bold"/>
+
+                        &nbsp;|
+                        <p:commandLink class="mouseon" action="#{userMB.logOut()}" title="注销">
+                            注销
+                        </p:commandLink>
                     </h:form>
                 </c:if>    
                 </div> 

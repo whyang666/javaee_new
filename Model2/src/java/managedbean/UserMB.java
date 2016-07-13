@@ -13,6 +13,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Business;
 import model.Coll;
+import model.Comment;
+import model.Commentp;
 import model.Play;
 import model.Tag;
 import model.User;
@@ -191,6 +193,8 @@ public class UserMB {
         //viewed=initialItems.get(index);
         viewed = initialItems.get(index);
         alreadyBC=is.checkBC(current, viewed);
+        shopComments=null;
+        comments=null;
         return "shopdetail";
     }
 
@@ -250,7 +254,7 @@ public class UserMB {
     }
 
     //
-    public String logButton() {
+    public String logButton1() {
         if (!isLogged) {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
@@ -281,8 +285,130 @@ public class UserMB {
         return "";
 
     }
-
+    public String logButton2(){
+                if (!isLogged) {
+            int thisID = is.getSelectedUserID(name, password);
+            if (thisID != -1) {
+                isLogged = true;
+                current=new User();
+                current.setUname(name);
+                current.setUpassword(password);
+                current.setId(thisID);
+                /////current.setId(Integer.SIZE);重要！
+                //
+                //
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 登陆成功！", "欢迎您，" + name));
+                // name=null;//输入框
+                password = null;
+                return "shopdetail.xhtml?faces-redirect=true";
+            } else {
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您输入的用户名或密码错误！", "请重新输入"));
+                return "";
+            }
+        }
+        RequestContext.getCurrentInstance().update("growl");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
+        return "";
+    }
     //
+    
+    public String logButton3(){
+                    if (!isLogged) {
+            int thisID = is.getSelectedUserID(name, password);
+            if (thisID != -1) {
+                isLogged = true;
+                current=new User();
+                current.setUname(name);
+                current.setUpassword(password);
+                current.setId(thisID);
+                /////current.setId(Integer.SIZE);重要！
+                //
+                //
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 登陆成功！", "欢迎您，" + name));
+                // name=null;//输入框
+                password = null;
+                return "playdetail.xhtml?faces-redirect=true";
+            } else {
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您输入的用户名或密码错误！", "请重新输入"));
+                return "";
+            }
+        }
+        RequestContext.getCurrentInstance().update("growl");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
+        return "";
+    }
+    
+     public String logButton4(){
+                    if (!isLogged) {
+            int thisID = is.getSelectedUserID(name, password);
+            if (thisID != -1) {
+                isLogged = true;
+                current=new User();
+                current.setUname(name);
+                current.setUpassword(password);
+                current.setId(thisID);
+                /////current.setId(Integer.SIZE);重要！
+                //
+                //
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 登陆成功！", "欢迎您，" + name));
+                // name=null;//输入框
+                password = null;
+                return "playpage.xhtml?faces-redirect=true";
+            } else {
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您输入的用户名或密码错误！", "请重新输入"));
+                return "";
+            }
+        }
+        RequestContext.getCurrentInstance().update("growl");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
+        return "";
+    }
+     
+      public String logButton5(){
+                    if (!isLogged) {
+            int thisID = is.getSelectedUserID(name, password);
+            if (thisID != -1) {
+                isLogged = true;
+                current=new User();
+                current.setUname(name);
+                current.setUpassword(password);
+                current.setId(thisID);
+                /////current.setId(Integer.SIZE);重要！
+                //
+                //
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 登陆成功！", "欢迎您，" + name));
+                // name=null;//输入框
+                password = null;
+                return "foodpage.xhtml?faces-redirect=true";
+            } else {
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您输入的用户名或密码错误！", "请重新输入"));
+                return "";
+            }
+        }
+        RequestContext.getCurrentInstance().update("growl");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "您已经处于登录状态", "无法重复登录"));
+        return "";
+    }
     public String prepare() {//防止空指针错误，初始化相应变量
         current = new User();
         collectedItems = null;
@@ -308,6 +434,8 @@ public class UserMB {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未登录！", "请您先登录!，" + name));
             return "";
         } else {
+            collectedItems=null;
+            collectedPlay=null;
             return "collect";
         }
     }
@@ -379,6 +507,8 @@ public class UserMB {
 
     public String onSpecialItemSelected(Business e) {
         viewed = e;
+        shopComments=null;
+       comments=null;
         return "shopdetail";
     }
 
@@ -406,6 +536,56 @@ public class UserMB {
             return "shopdetail";
         }
     }
+    
+    public String cancelCP(){
+        if (!isLogged) {
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
+            return "";
+        } 
+        else{
+            if(is.checkPC(current, v)){
+                is.cancelPC(current, v);
+                RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 已取消收藏", "请继续浏览"));
+                return "playdetail";
+            }
+            else{
+                 RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未收藏此店铺", "请继续浏览"));
+                return "";
+            }
+        }
+    }
+    
+    public String confirmCP(){
+         if (!isLogged) {
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您尚未注册或登录", "请先注册或登录"));
+            return "";
+        } 
+         else{
+             if(is.checkPC(current, v)){
+                  RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 您已经收藏了此店铺", "无法重复收藏"));
+             }
+             else{
+                 is.confirmPC(current, v);
+                  RequestContext.getCurrentInstance().update("growl");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 收藏成功", "请继续浏览"));
+             }
+             return "";
+         }
+    }
+    
+    
+    
     public boolean businessIsNotCollected(){
         return is.findSelectedCollId(current, viewed) == -1;
     }
@@ -489,6 +669,8 @@ public class UserMB {
 
     public String onSpecialPlaySelected(Play x) {
         v = x;
+        playComments=null;
+        commentsp=null;
         return "playdetail";
     }
     
@@ -552,4 +734,71 @@ public class UserMB {
     public void refreshP(){
         initialPlay=is.randomPlay(8);
     }
+    
+    
+    private String comments;
+    private List<Comment> shopComments;
+
+    public String getComments() {
+        return comments;
+    }
+   
+    public List<Comment> getShopComments() {
+    
+        if(shopComments!=null) return shopComments;
+        else{
+            shopComments=is.findCommentsByBusiness(viewed);
+        }
+        return shopComments;
+    }
+
+   
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+   
+    public String submitComments(){
+        if(!isLogged) return "";
+        is.persistComment(current, viewed, comments);
+        shopComments=null;
+        comments=null;
+        return "shopdetail.xhtml?faces-redirect=true";
+    }
+    
+    
+    private String commentsp;
+    private List<Commentp> playComments;
+   
+    
+    public String submitPComments(){
+        if(!isLogged) return "";
+        is.persistPComment(current, v, commentsp);
+        playComments=null;
+        commentsp=null;
+        return "playdetail.xhtml?faces-redirect=true";
+    }
+    public String getCommentsp() {
+        return commentsp;
+    }
+
+    public void setCommentsp(String commentsp) {
+        this.commentsp = commentsp;
+    }
+
+    public List<Commentp> getPlayComments() {
+       if(playComments!=null) return playComments;
+       else{
+           playComments=is.findCommentByPlay(v);
+       }
+       return playComments;
+    }
+
+    public void setPlayComments(List<Commentp> playComments) {
+        this.playComments = playComments;
+    }
+
+    
+    
+    
+    
 }
