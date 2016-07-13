@@ -255,6 +255,7 @@ public class UserMB {
             int thisID = is.getSelectedUserID(name, password);
             if (thisID != -1) {
                 isLogged = true;
+                current=new User();
                 current.setUname(name);
                 current.setUpassword(password);
                 current.setId(thisID);
@@ -545,6 +546,10 @@ public class UserMB {
         v=null;
         return "homepage.xhtml?faces-redirect=true";
     }
-
-
+    public void refreshB(){
+      initialItems=is.randomBusiness(8);
+  }
+    public void refreshP(){
+        initialPlay=is.randomPlay(8);
+    }
 }
