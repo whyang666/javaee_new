@@ -749,12 +749,17 @@ public class UserMB {
 
     public String submitComments() {
         if (!isLogged) {
+            RequestContext.getCurrentInstance().update("growl");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, " 尚未登陆!", "请您先登录！"));
             return "";
         }
+        else{
         is.persistComment(current, viewed, comments);
         shopComments = null;
         comments = null;
         return "shopdetail.xhtml?faces-redirect=true";
+        }
     }
 
     private String commentsp;
